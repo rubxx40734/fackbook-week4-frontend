@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: '/dist'
+  publicPath: '/fackbook-week4-frontend/dist'
 }
