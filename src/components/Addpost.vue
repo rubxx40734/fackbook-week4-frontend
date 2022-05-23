@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-7">
+  <div class="col-md-8">
     <div class="overlapping mt-4 position-relative">
       <div class="box1 p-3 w-100">
         <p class="mb-0 text-center">張貼動態</p>
@@ -31,66 +31,39 @@
           />
         </div>
       </div>
-
+       <p class="text-center text-danger fw-bold">{{errorMessage}}</p>
       <button
         type="button"
         class="btn btn-info w-75 text-secondary fw-bold mt-2 align-self-center"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
         @click="sendPost"
       >
         送出貼文
       </button>
       <!-- Modal -->
-      <div
-        class="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">訊息</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">新增貼文成功</div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                完成
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <successModal ref="modal"></successModal>
     </div>
   </div>
 </template>
 
 <script>
+import successModal from '../components/successModal.vue'
 export default {
   data () {
     return {
       content: '',
-      user: '626e33435f91f1319c844b47',
-      image: ''
+      image: '',
+      errorMessage: ''
     }
   },
+  components: { successModal },
+  props: ['currentUser'],
   methods: {
     sendPost () {
+      const token = window.localStorage.getItem('userToken')
+      console.log(token, this.currentUser)
       const data = {
         content: this.content,
-        user: '626e33435f91f1319c844b47',
+        user: this.currentUser._id,
         image: this.image
       }
       this.axios
@@ -99,6 +72,11 @@ export default {
           console.log(res)
           this.content = ''
           this.image = ''
+          this.errorMessage = ''
+          this.$refs.modal.showModal()
+        }).catch(err => {
+          this.errorMessage = err.response.data.message
+          console.log(err.response.data.message)
         })
     }
   }

@@ -33,3 +33,21 @@ html {
     width: 100vw;
     overflow: hidden;
   }
+  .bgCoverBottom{
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.bgCover{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover cover;
+}
+.card-img {
+  object-fit: cover;
+  object-position: center;
+}
+.userphoto{
+  height: 50px;
+  width: 50px;
+}

@@ -7,8 +7,8 @@
       </button>
       <ul class="detail">
         <li class="d-flex align-items-center mb-4">
-          <img src="../assets/user.png" alt="" class="me-3" />
-          <p class="mb-0 fw-bold">邊緣小杰</p>
+          <img :src="current.photo" alt="" class="ms-1 me-4 userphoto bgCover card-img" />
+          <p class="mb-0 fw-bold">{{current.name}}</p>
         </li>
         <li class="d-flex mb-4 d-flex align-items-center">
           <div
@@ -30,3 +30,8 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  props: ['current']
+}
+</script>

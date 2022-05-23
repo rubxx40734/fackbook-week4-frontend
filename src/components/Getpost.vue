@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-7">
+  <div class="col-md-8">
     <div class="row">
       <div class="col-md-4">
         <select
@@ -53,7 +53,7 @@
       :key="item.id"
     >
       <div class="user d-flex align-items-center mb-4">
-        <img src="../assets/user6.png" alt="" class="me-3" />
+        <img :src="item.user.photo" alt="" class="me-3 userphoto bgCover card-img" />
         <div class="nameTime">
           <p class="mb-0 fw-bold">{{ item.user.name }}</p>
           <p class="mb-0 createTime">{{ item.createdAt }}</p>
@@ -123,6 +123,11 @@
   height: 15px;
   border-radius: 50%;
   background-color: #83C51D;
+}
+.userphoto{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 </style>
 <script>
