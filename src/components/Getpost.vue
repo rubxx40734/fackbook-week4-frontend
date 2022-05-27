@@ -32,7 +32,7 @@
         </div>
       </div>
     </div>
-    <div class="friendPost p-4 d-flex flex-column mb-3">
+    <!-- <div class="friendPost p-4 d-flex flex-column mb-3">
       <div class="user d-flex align-items-center mb-4">
         <img src="../assets/user.png" alt="" class="me-3" />
         <div class="nameTime">
@@ -45,12 +45,12 @@
         我決定回被窩繼續睡.... @@
       </h1>
       <img src="../assets/image.png" alt="" class="text-center" />
-    </div>
+    </div> -->
 
-    <div
+    <div  ref="postId"
       class="friendPost p-4 d-flex flex-column mb-3"
-      v-for="item in post"
-      :key="item.id"
+      v-for="(item,index) in post"
+      :key="index"
     >
       <div class="user d-flex align-items-center mb-4">
         <img :src="item.user.photo" alt="" class="me-3 userphoto bgCover card-img" />
@@ -63,9 +63,11 @@
         {{ item.content }}
       </h1>
       <img :src="item.image" alt="" class="text-center imgSetting w-100" />
+      <button type="button" class="btn btn-outline-primary greatPost mt-3 p-0"
+      @click="addOrcancel(item._id)">
+      <i class="bi bi-hand-thumbs-up"></i></button><span>{{item.likes.length}}</span>
     </div>
-
-    <div class="friendPost d-flex flex-column mb-3" v-if="this.postLength.length == 0">
+    <div class="friendPost d-flex flex-column mb-3" v-if="this.post.length == 0">
       <div class="user d-flex align-items-center mb-4 colorBar p-0">
         <ul class="colorCur d-flex p-2">
             <li class="red border me-2"></li>
@@ -129,6 +131,9 @@
   height: 50px;
   border-radius: 50%;
 }
+.greatPost{
+  width: 50px;
+}
 </style>
 <script>
 export default {
@@ -136,7 +141,8 @@ export default {
     return {
       search: '',
       datePost: '',
-      postLength: 0
+      postLength: 0,
+      greateNum: ''
     }
   },
   props: ['post'],
@@ -148,11 +154,26 @@ export default {
     selectDate () {
       console.log(this.datePost)
       this.$emit('dateKey', this.datePost)
+    },
+    addOrcancel (id) {
+      this.axios.post(`https://rocky-wave-99178.herokuapp.com/posts/${id}/likes`)
+        .then(res => {
+          console.log(res)
+          this.refreshGreat()
+          // this.axios.get(`https://rocky-wave-99178.herokuapp.com/posts/${id}/greateNum`)
+          //   .then(res => {
+          //     console.log(res)
+          //     this.greateNum = res.data.greateNum
+          //   })
+        })
+    },
+    refreshGreat () {
+      this.$emit('emit-great')
     }
   },
   created () {
     console.log(this.post.length)
-    this.postLength = this.post.length
+    // this.postLength = this.post.length
   }
 }
 </script>

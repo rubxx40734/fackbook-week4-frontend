@@ -8,6 +8,7 @@
         :post="posts"
         @searchKey="postSearch"
         @dateKey="postDate"
+        @emit-great="init"
         v-if="!isShow"
       ></Getpost>
       <Addpost v-if="isShow" :currentUser="currentUser"></Addpost>

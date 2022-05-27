@@ -37,13 +37,19 @@
           <div
             class="downBox-editName d-flex flex-column align-items-center w-75"
           >
-            <img
+             <img v-if="updateUser.photo"
+              :src="updateUser.photo"
+              alt=""
+              class="mt-5 uploadimg bgCover card-img mb-3"
+            />
+            <img v-else
               :src="currentUser.photo"
               alt=""
-              class="mt-5 uploadimg bgCover card-img"
+              class="mt-5 uploadimg bgCover card-img mb-3"
             />
-            <div class="checkImg">
-              <button class="btn btn-dark mt-4 mb-4 px-5 text" type="button">
+            <div class="checkImg d-flex flex-column align-items-center">
+              <input type="file" class="form-control w-75" name="image" ref="fileInputUser">
+              <button class="btn btn-dark mt-4 mb-4 px-5 text w-75" type="button" @click="upfileUser">
                 上傳大頭貼
               </button>
             </div>
@@ -232,7 +238,8 @@ export default {
       isdrink: false,
       updateUser: {
         name: '',
-        sex: ''
+        sex: '',
+        photo: ''
       },
       updatePassword: {
         password: '',
@@ -322,6 +329,18 @@ export default {
         .catch((err) => {
           this.errMessage = err.response.data.message
           console.log(err.response.data.message)
+        })
+    },
+    upfileUser () {
+      const file = this.$refs.fileInputUser.files[0]
+      const formDate = new FormData()
+      formDate.append('image', file)
+      this.axios.post('https://rocky-wave-99178.herokuapp.com/upload', formDate)
+        .then(res => {
+          this.updateUser.photo = res.data.imgUrl
+        })
+        .catch(err => {
+          console.log(err)
         })
     }
   },
