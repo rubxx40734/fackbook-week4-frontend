@@ -21,6 +21,14 @@ const routes = [
     path: '/profile',
     name: 'profile',
     component: () => import('../views/Profile.vue')
+  },
+  {
+    path: '/greatepost',
+    component: () => import('../views/GreatePost.vue')
+  },
+  {
+    path: '/followdetail',
+    component: () => import('../views/FollowDetail.vue')
   }
 ]
 

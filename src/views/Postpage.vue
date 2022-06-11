@@ -1,19 +1,24 @@
 <template>
   <div class="container-fluid p-0">
-    <Navbar :current="currentUser" @emit-showPosatpage="showPostpage"></Navbar>
+    <Navbar :current="currentUser" @emit-showPosatpage="showPostpage"
+    @emit-personPost="init"></Navbar>
   </div>
   <div class="container p-3">
     <div class="row">
       <Getpost
         :post="posts"
+        :current="currentUser"
         @searchKey="postSearch"
         @dateKey="postDate"
         @emit-great="init"
+        @emit-personPost="getDetailPerson"
         v-if="!isShow"
       ></Getpost>
       <Addpost v-if="isShow" :currentUser="currentUser"></Addpost>
       <div class="col-md-1"></div>
-      <Aboutuser :current="currentUser" @change="changeContent"></Aboutuser>
+      <Aboutuser :current="currentUser" @change="changeContent"
+      @emit-gotoIclick="gotoIclick" @emit-personPost="getPeronPost"
+      @emit-showFollow="gotoFollow"></Aboutuser>
     </div>
   </div>
 </template>
@@ -47,6 +52,7 @@ body {
   width: 50px;
   height: 50px;
   background-color: #e2edfa;
+  border: 2px solid black;
 }
 </style>
 <script>
@@ -90,6 +96,24 @@ export default {
           this.posts = res.data.allPost
         })
     },
+    getPeronPost () {
+      this.axios.get(`https://rocky-wave-99178.herokuapp.com/posts/user/${this.currentUser._id}`)
+        .then(res => {
+          console.log(res.data.post)
+          this.posts = res.data.post
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+    getDetailPerson (id) {
+      this.axios.get(`https://rocky-wave-99178.herokuapp.com/posts/user/${id}`)
+        .then(res => {
+          console.log(res.data.post)
+          this.posts = res.data.post
+        }).catch(err => {
+          console.log(err)
+        })
+    },
     changeContent () {
       this.isShow = !this.isShow
       // this.init()
@@ -120,6 +144,12 @@ export default {
     showPostpage () {
       this.isShow = false
       this.init()
+    },
+    gotoIclick () {
+      this.$router.push('/greatepost')
+    },
+    gotoFollow () {
+      this.$router.push('/followdetail')
     }
   },
   created () {

@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand title" href="#">MetaWall</a>
+      <a class="navbar-brand titleTxt" href="#" @click.prevent="checkPostpage">MetaWall</a>
       <div class="user d-flex align-items-center">
         <img :src="current.photo" alt="" class="me-3 userphoto bgCover card-img" />
         <!-- <p class="mb-0 person">Member</p> -->
@@ -15,7 +15,7 @@
             >{{current.name}}</a
           >
           <ul class="dropdown-menu content minW">
-            <router-link to="/postpage"><li><a class="dropdown-item fw-bold" @click="checkPostpage">我的貼文牆</a></li></router-link>
+            <router-link to="/postpage"><li><a class="dropdown-item fw-bold" @click="myPost">我的貼文牆</a></li></router-link>
             <router-link to="/profile"><a class="dropdown-item fw-bold">修改個人資料</a></router-link >
             <li><a class="dropdown-item fw-bold" href="#">登出</a></li>
           </ul>
@@ -26,10 +26,10 @@
 </template>
 
 <style lang="scss">
-.title {
+.titleTxt {
   font-family: Roboto;
-  font-size: 26px;
-  font-weight: 900;
+  font-size: 30px;
+  font-weight: bolder;
 }
 .person {
   font-family: Roboto;
@@ -56,7 +56,11 @@ export default {
   },
   methods: {
     checkPostpage () {
+      this.$router.push('/postpage')
       this.$emit('emit-showPosatpage')
+    },
+    myPost () {
+      this.$emit('emit-personPost')
     }
   },
   props: ['current']

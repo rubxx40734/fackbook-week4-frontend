@@ -83,10 +83,11 @@ $theme-colors: (
   "secondary":  #000400,
   "success":    #EFECE7,
   "info":       #A8B0B9,
-  "warning":    $warning,
+  "warning":    #EFECE7,
   "danger":     $danger,
-  "light":      $light,
-  "dark":       $dark
+  "light":      #FFFFFF,
+  "dark":       $dark,
+  "yellow":     #EEC32A
 ) !default;
 // scss-docs-end theme-colors-map
 

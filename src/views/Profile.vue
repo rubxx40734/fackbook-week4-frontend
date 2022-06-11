@@ -166,7 +166,7 @@
         </div> -->
       </div>
       <div class="col-md-1"></div>
-      <Aboutuser :current="currentUser" @change="changeContent"></Aboutuser>
+      <Aboutuser :current="currentUser" @change="changeContent"  @emit-gotoIclick="gotoIclick"></Aboutuser>
     </div>
   </div>
   <successModal ref="sucmodal"></successModal>
@@ -342,6 +342,9 @@ export default {
         .catch(err => {
           console.log(err)
         })
+    },
+    gotoIclick () {
+      this.$router.push('/greatepost')
     }
   },
   created () {
