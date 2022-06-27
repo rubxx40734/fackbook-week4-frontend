@@ -14,15 +14,18 @@
             <h2 class="text-center fw-bold mb-3 fs-5">
               到元宇宙展開全新社交圈
             </h2>
-            <form class="row justify-content-center">
+            <Form class="row justify-content-center" v-slot="{errors}">
               <div class="input-group mb-3 p-0">
-                <input
+                <Field
+                  id="email"
+                  name="email"
                   type="email"
                   class="form-control"
                   placeholder="Email"
-                  aria-label="Email"
-                  v-model="user.email"
-                />
+                  :class="{ 'is-invalid': errors['email']}"
+                  rules="email||required"
+                  v-model="user.email"></Field>
+                <error-message name="email" class="invalid-feedback"></error-message>
               </div>
               <div class="input-group mb-3 p-0">
                 <input
@@ -38,7 +41,7 @@
                 登入
               </button>
               <button class="btn w-100 Roboto fw-bold" @click="gotosignup">註冊帳號</button>
-            </form>
+            </Form>
           </div>
         </div>
       </div>

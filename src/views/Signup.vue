@@ -12,7 +12,7 @@
               MetaWall
             </h1>
             <h2 class="text-center fw-bold mb-3 fs-5">註冊</h2>
-            <form class="row justify-content-center">
+            <Form class="row justify-content-center" v-slot="{errors}">
               <div class="input-group mb-3 p-0">
                 <input
                   type="text"
@@ -23,13 +23,16 @@
                 />
               </div>
               <div class="input-group mb-3 p-0">
-                <input
+                <Field
+                  id="email"
+                  name="email"
                   type="email"
                   class="form-control"
                   placeholder="Email"
-                  aria-label="Email"
-                  v-model="user.email"
-                />
+                  :class="{ 'is-invalid': errors['email']}"
+                  rules="email||required"
+                  v-model="user.email"></Field>
+                <error-message name="email" class="invalid-feedback"></error-message>
               </div>
               <div class="input-group mb-3 p-0">
                 <input
@@ -62,7 +65,7 @@
               <button class="btn w-100 Roboto fw-bold" @click="gotologin">
                 登入
               </button>
-            </form>
+            </Form>
           </div>
         </div>
       </div>

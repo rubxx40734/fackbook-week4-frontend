@@ -116,7 +116,6 @@ export default {
     },
     changeContent () {
       this.isShow = !this.isShow
-      // this.init()
     },
     init () {
       const token = window.localStorage.getItem('userToken')
